@@ -1,0 +1,63 @@
+html, body {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	clear: both;
+	font-family: "system-ui";
+}
+
+.title {
+	text-align: center;
+}
+
+legend {
+	font-weight: bold;
+}
+
+.formGroup {
+	margin-bottom: 20px;
+}
+
+.formGroup p {
+	margin: 3px;
+}
+
+.member {
+	padding-top: 10px;
+}
+
+input[type='submit'] {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 70%;
+	height: 40px;
+	color: white;
+	background-color: green;
+	border-radius: 5px;
+	font-size: large;
+	margin-bottom: 30px;
+}
+
+#equipment input {
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+#script {
+	font-family: "Arial", sans-serif;
+	font-size: 10.5pt;
+	margin: 5px;
+	padding: 10px;
+}
+
+#email_form {
+	padding: 10px;
+}
+
+@media print {
+	#email_form {
+		display: none;
+	}
+}
