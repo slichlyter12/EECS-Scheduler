@@ -98,7 +98,7 @@
 			break;
 		default: 
 			// error handle
-			$script = "ERROR";
+			$script = "No Event Selected!";
 			break;
 	}
 	
