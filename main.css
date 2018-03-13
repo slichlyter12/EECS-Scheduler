@@ -45,7 +45,7 @@ input[type='submit'] {
 	margin-top: 10px;
 }
 
-#script {
+#script, #announcement {
 	font-family: "Arial", sans-serif;
 	font-size: 10.5pt;
 	margin: 5px;
@@ -54,6 +54,15 @@ input[type='submit'] {
 
 #email_form {
 	padding: 10px;
+}
+
+fieldset.disabled {
+	display: none;
+}
+
+#announcement ul {
+	list-style: none;
+	padding: 0;
 }
 
 @media print {

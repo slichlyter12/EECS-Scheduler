@@ -10,14 +10,13 @@
 		
 	date_default_timezone_set("America/Los_Angeles");
 	
-	/* echo highlight_string("<?php\n\$data =\n" . var_export($_POST, true) . ";\n?>"); */
+	echo highlight_string("<?php\n\$data =\n" . var_export($_POST, true) . ";\n?>");
 	
 	$data =
 	array (
 	  'event' => $_POST['event'],
 	  'degree' => $_POST['degree'],
 	  'major' => $_POST['major'],
-	  'room' => $_POST['room'],
 	  'date' => $_POST['date'],
 	  'start_time' => $_POST['start_time'],
 	  'end_time' => $_POST['end_time'],
@@ -34,15 +33,6 @@
 	    3 => $_POST['committee_members_name'][3],
 	    4 => $_POST['committee_members_name'][4],
 	    5 => $_POST['committee_members_name'][5]
-	  ),
-	  'members_email' =>
-	  array(
-		0 => $_POST['committee_email'][0],
-	    1 => $_POST['committee_email'][1],
-	    2 => $_POST['committee_email'][2],
-	    3 => $_POST['committee_email'][3],
-	    4 => $_POST['committee_email'][4],
-	    5 => $_POST['committee_email'][5]
 	  ),
 	  'members_role' => 
 	  array (
@@ -64,59 +54,24 @@
 	  ),
 	  'submit' => $_POST['submit']
 	);
-			
-	switch ($data['event']) {
-		case 'final_thesis': 
-			// open final thesis
-			$email_subject = "Final Thesis";
-			$script = post_final_thesis($data);
-			break;
-		case 'final_non_thesis':
-			// open final non-thesis
-			$email_subject = "Final Non-Thesis";
-			$script = post_final_non_thesis($data);
-			break;
-		case 'phd_prelim':
-			// open phd prelim
-			$email_subject = "PhD Preliminary Oral Exam";
-			$script = post_phd_prelim($data);
-			break;
-		case 'phd_qual':
-			// open phd qualifier
-			$email_subject = "PhD Qualifying Exam";
-			$script = post_phd_qualifier($data);
-			break;
-		case 'meng':
-			// open meng
-			$email_subject = "MEng Final Exam";
-			$script = post_meng($data);
-			break;
-		case 'program_meeting':
-			// open program meeting
-			$email_subject = "PhD Program Meeting";
-			$script = post_program_meeting($data);
-			break;
-		default: 
-			// error handle
-			$script = "No Event Selected!";
-			break;
-	}
 	
-	$_SESSION["script"] = $script;
-	$_SESSION["data"] = $data;
+	$data = getScripts($data);
+	$event_title = $data["event_title"];
+	$script = $data["script"];
+	$announcement = getAnnouncement($data);
+	
+// 	$_SESSION["data"] = $data;
 		
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><?php echo $email_subject; ?> Script</title>
+		<title><?php echo $event_title; ?> Script</title>
 		<link rel="stylesheet" type="text/css" href="main.css">
 	</head>
 	<body>
  		<div id="script"><?php echo $script; ?></div>
-		<form id="email_form" method="post" action="email.php">
-			<input type="hidden" name="subject" value="<?php echo $email_subject; ?>">
-			<button type="submit" value="email">Email this to <?php echo $data["name"]; ?></button>
-		</form>
+ 		<hr>
+ 		<div id="announcement"><?php echo $announcement; ?></div>
 	</body>
 </html>

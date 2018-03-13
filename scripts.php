@@ -1,15 +1,14 @@
 <?php
 	
+// 	session_start();
+	
 	function post_final_thesis($data) {
-		$room = $data['room'];
 		$date = date("n/j/Y", strtotime($data['date']));
 		$start_time = date('g:ia', strtotime($data['start_time']));
-		$end_time = date('g:ia', strtotime($data['end_time']));
-		$room_start = date('g:ia', strtotime($start_time) - 1 * 3600); // 3600 seconds in 1 hour times 1 hour
-		
+		$end_time = date('g:ia', strtotime($data['end_time']));		
 		
 		$script = "
-			<p>You are scheduled in $room on $date from $room_start to $end_time. Your final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
+			<p>You are scheduled in **ROOM** on $date from **ROOM TIME**. Your final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
 			
 			<p><b>Schedule Event with EECS and the Graduate School:</b></p>
 			
@@ -34,14 +33,12 @@
 	}
 	
 	function post_final_non_thesis($data) {
-		$room = $data['room'];
 		$date = date("n/j/Y", strtotime($data['date']));
 		$start_time = date('g:ia', strtotime($data['start_time']));
 		$end_time = date('g:ia', strtotime($data['end_time']));
-		$room_start = date('g:ia', strtotime($start_time) - 1 * 3600); // 3600 seconds in 1 hour times 1 hour
 		
 		$script = "
-			<p>You are scheduled in $room on $date from $room_start to $end_time. Your final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
+			<p>You are scheduled in **ROOM** on $date from **ROOM TIME**. Your final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
 			
 			<p><b>Schedule Event with EECS and the Graduate School:</b></p>
 			
@@ -64,14 +61,12 @@
 	}
 	
 	function post_phd_prelim($data) {
-		$room = $data['room'];
 		$date = date("n/j/Y", strtotime($data['date']));
 		$start_time = date('g:ia', strtotime($data['start_time']));
 		$end_time = date('g:ia', strtotime($data['end_time']));
-		$room_start = date('g:ia', strtotime($start_time) - 1 * 3600); // 3600 seconds in 1 hour times 1 hour
 		
 		$script = "
-			<p>You are scheduled in $room on $date from $room_start to $end_time. Your PhD Oral Preliminary exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
+			<p>You are scheduled in **ROOM** on $date from **ROOM TIME**. Your PhD Oral Preliminary exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
 			
 			<p><b>Schedule Event with EECS and the Graduate School:</b></p>
 			
@@ -101,14 +96,12 @@
 	}
 	
 	function post_phd_qualifier($data) {
-		$room = $data['room'];
 		$date = date("n/j/Y", strtotime($data['date']));
 		$start_time = date('g:ia', strtotime($data['start_time']));
 		$end_time = date('g:ia', strtotime($data['end_time']));
-		$room_start = date('g:ia', strtotime($start_time) - 1 * 3600); // 3600 seconds in 1 hour times 1 hour
 		
 		$script = "
-			<p>You are scheduled in $room on $date from $room_start to $end_time. Your PhD Qualifying exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
+			<p>You are scheduled in **ROOM** on $date from **ROOM TIME**. Your PhD Qualifying exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
 			
 			<p><b>You do not need to send the event schedule form to the Graduate School for this event.</b></p>
 			
@@ -139,14 +132,12 @@
 	}
 	
 	function post_meng($data) {
-		$room = $data['room'];
 		$date = date("n/j/Y", strtotime($data['date']));
 		$start_time = date('g:ia', strtotime($data['start_time']));
 		$end_time = date('g:ia', strtotime($data['end_time']));
-		$room_start = date('g:ia', strtotime($start_time) - 1 * 3600); // 3600 seconds in 1 hour times 1 hour
 		
 		$script = "
-			<p>You are scheduled in $room on $date from $room_start to $end_time. Your MEng final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
+			<p>You are scheduled in **ROOM** on $date from **ROOM TIME**. Your MEng final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
 			
 			<p><b>For your exam, you will need to prepare a 15-20 minute PowerPoint presentation on a project you have worked on in one of your graduate classes here at OSU.  The other 15-20 minutes of your exam will be oral questions on your coursework.  Please bring a whiteboard marker with you for the coursework questions!</b></p>
 			
@@ -165,14 +156,12 @@
 	}
 	
 	function post_program_meeting($data) {
-		$room = $data['room'];
 		$date = date("n/j/Y", strtotime($data['date']));
 		$start_time = date('g:ia', strtotime($data['start_time']));
 		$end_time = date('g:ia', strtotime($data['end_time']));
-		$room_start = date('g:ia', strtotime($start_time) - 1 * 3600); // 3600 seconds in 1 hour times 1 hour
 		
 		$script = "
-			<p>You are scheduled in $room on $date from $start_time - $end_time for your PhD Program Meeting.  Please notify your committee of the date, time, and place.</p>
+			<p>You are scheduled in **ROOM** on $date from $start_time - $end_time for your PhD Program Meeting.  Please notify your committee of the date, time, and place.</p>
 			
 			<p>You do <b>not</b> need to submit the event schedule form to the Graduate School for this event. Your key card access opens the room.</p>
 			
@@ -186,6 +175,106 @@
 		";
 		
 		return $script;
+	}
+	
+	function getAnnouncement($data) {
+		$date = date("l, F n, Y", strtotime($data['date']));
+		$start_time = date('g:ia', strtotime($data['start_time']));
+		$end_time = date('g:ia', strtotime($data['end_time']));
+		$event_title = $data["event_title"];
+		$event = $data["event"];
+		$name = $data["name"];
+		$committee_names = $data["committee_members_name"];
+		$committee_roles = $data["members_role"];
+		$thesis_title = $data["thesis_title"];
+		$thesis_abstract = $data["thesis_abstract"];
+ 		
+		// Top part of announcement
+		$announcement = "
+			<p>
+				<ul>
+					<li>School of Electrical Engineering and Computer Science</li>
+					<li>Oregon State University</li>
+				</ul>
+			</p>
+			
+			<p>$event_title &ndash; $name</p>
+			
+			<p>
+				<ul>
+					<li>Date: $date</li>
+					<li>Time: $start_time - $end_time</li>
+					<li>Place: **ROOM**</li>
+				</ul>
+			</p>
+		";
+		
+		// Committee
+		$announcement .= "<p><ul>";
+		for ($i = 0; $i < sizeof($committee_names); $i++) {
+			$name = ucwords($committee_names[$i]);
+			$role = ucwords(str_replace('_', ' ', $committee_roles[$i]));
+			if (!empty($name)) {
+				$announcement .= "<li>$role: $name</li>";
+			}
+		}
+		$announcement .= "</ul></p>";
+		
+		// Bottom part of announcement (Thesis)
+		if ($event != "final_non_thesis") {
+			$announcement .= "
+				<p>Title: $thesis_title</p>
+				
+				<p>Abstract: $thesis_abstract</p>
+			";
+		}
+		
+		return $announcement;
+	}
+	
+	function getScripts($data) {
+		switch ($data['event']) {
+			case 'final_thesis': 
+				// open final thesis
+				$event_title = "Final Thesis";
+				$script = post_final_thesis($data);
+				break;
+			case 'final_non_thesis':
+				// open final non-thesis
+				$event_title = "Final Non-Thesis";
+				$script = post_final_non_thesis($data);
+				break;
+			case 'phd_prelim':
+				// open phd prelim
+				$event_title = "PhD Preliminary Oral Exam";
+				$script = post_phd_prelim($data);
+				break;
+			case 'phd_qual':
+				// open phd qualifier
+				$event_title = "PhD Qualifying Exam";
+				$script = post_phd_qualifier($data);
+				break;
+			case 'meng':
+				// open meng
+				$event_title = "MEng Final Exam";
+				$script = post_meng($data);
+				break;
+			case 'program_meeting':
+				// open program meeting
+				$event_title = "PhD Program Meeting";
+				$script = post_program_meeting($data);
+				break;
+			default: 
+				// error handle
+				$event_title = "None";
+				$script = "No Event Selected!";
+				break;
+		}
+		
+		$data["event_title"] = $event_title;
+		$data["script"] = $script;
+		
+		return $data;
 	}
 	
 ?>
