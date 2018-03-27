@@ -1,17 +1,23 @@
 <?php
 	
+	// start session
 	session_start();
 	
+	// get scripts functions
 	include_once("scripts.php");
 	
+	// if user didn't come from the from, redirect them there 
 	if (!isset($_POST["submit"])) {
 		header("Location: index.php");
 	}
 		
+	// set default timezone for date functions
 	date_default_timezone_set("America/Los_Angeles");
 	
-	echo highlight_string("<?php\n\$data =\n" . var_export($_POST, true) . ";\n?>");
+	// print posted data to screen
+	echo highlight_string("<?php\n" . var_export($_POST, true) . ";\n?>");
 	
+	// set main $data array
 	$data =
 	array (
 	  'event' => $_POST['event'],
@@ -55,13 +61,18 @@
 	  'submit' => $_POST['submit']
 	);
 	
+	// See scripts.php getScripts() function definition for explanation of this block
 	$data = getScripts($data);
+	$data = formatDegree($data);
 	$event_title = $data["event_title"];
 	$script = $data["script"];
+	
+	// get announcement
 	$announcement = getAnnouncement($data);
 	
-// 	$_SESSION["data"] = $data;
-		
+	// get file task
+	$fileTask = getFileTask($data);
+			
 ?>
 <!DOCTYPE html>
 <html>
@@ -73,5 +84,6 @@
  		<div id="script"><?php echo $script; ?></div>
  		<hr>
  		<div id="announcement"><?php echo $announcement; ?></div>
+ 		<div id="fileTask"><?php echo $fileTask; ?></div>
 	</body>
 </html>

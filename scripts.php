@@ -8,7 +8,7 @@
 		$end_time = date('g:ia', strtotime($data['end_time']));		
 		
 		$script = "
-			<p>You are scheduled in **ROOM** on $date from **ROOM TIME**. Your final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
+			<p>You are scheduled in ROOM on $date from ROOM_TIME. Your final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
 			
 			<p><b>Schedule Event with EECS and the Graduate School:</b></p>
 			
@@ -38,7 +38,7 @@
 		$end_time = date('g:ia', strtotime($data['end_time']));
 		
 		$script = "
-			<p>You are scheduled in **ROOM** on $date from **ROOM TIME**. Your final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
+			<p>You are scheduled in ROOM on $date from ROOM_TIME. Your final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
 			
 			<p><b>Schedule Event with EECS and the Graduate School:</b></p>
 			
@@ -66,7 +66,7 @@
 		$end_time = date('g:ia', strtotime($data['end_time']));
 		
 		$script = "
-			<p>You are scheduled in **ROOM** on $date from **ROOM TIME**. Your PhD Oral Preliminary exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
+			<p>You are scheduled in ROOM on $date from ROOM_TIME. Your PhD Oral Preliminary exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
 			
 			<p><b>Schedule Event with EECS and the Graduate School:</b></p>
 			
@@ -101,7 +101,7 @@
 		$end_time = date('g:ia', strtotime($data['end_time']));
 		
 		$script = "
-			<p>You are scheduled in **ROOM** on $date from **ROOM TIME**. Your PhD Qualifying exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
+			<p>You are scheduled in ROOM on $date from ROOM_TIME. Your PhD Qualifying exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
 			
 			<p><b>You do not need to send the event schedule form to the Graduate School for this event.</b></p>
 			
@@ -137,7 +137,7 @@
 		$end_time = date('g:ia', strtotime($data['end_time']));
 		
 		$script = "
-			<p>You are scheduled in **ROOM** on $date from **ROOM TIME**. Your MEng final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
+			<p>You are scheduled in ROOM on $date from ROOM_TIME. Your MEng final exam is from $start_time - $end_time so this will give you time to set up before your event. Please notify your committee of the date, time, and place.  I will send out an announcement about one week prior and it should also appear in our newsletter.  If you serve refreshments, please clean up afterwards. </p>
 			
 			<p><b>For your exam, you will need to prepare a 15-20 minute PowerPoint presentation on a project you have worked on in one of your graduate classes here at OSU.  The other 15-20 minutes of your exam will be oral questions on your coursework.  Please bring a whiteboard marker with you for the coursework questions!</b></p>
 			
@@ -161,7 +161,7 @@
 		$end_time = date('g:ia', strtotime($data['end_time']));
 		
 		$script = "
-			<p>You are scheduled in **ROOM** on $date from $start_time - $end_time for your PhD Program Meeting.  Please notify your committee of the date, time, and place.</p>
+			<p>You are scheduled in ROOM on $date from $start_time - $end_time for your PhD Program Meeting.  Please notify your committee of the date, time, and place.</p>
 			
 			<p>You do <b>not</b> need to submit the event schedule form to the Graduate School for this event. Your key card access opens the room.</p>
 			
@@ -182,6 +182,7 @@
 		$start_time = date('g:ia', strtotime($data['start_time']));
 		$end_time = date('g:ia', strtotime($data['end_time']));
 		$event_title = $data["event_title"];
+		$degree = $data["formatted_degree"];
 		$event = $data["event"];
 		$name = $data["name"];
 		$committee_names = $data["committee_members_name"];
@@ -198,13 +199,13 @@
 				</ul>
 			</p>
 			
-			<p>$event_title &ndash; $name</p>
+			<p>$degree $event_title &ndash; $name</p>
 			
 			<p>
 				<ul>
 					<li>Date: $date</li>
 					<li>Time: $start_time - $end_time</li>
-					<li>Place: **ROOM**</li>
+					<li>Place: ROOM</li>
 				</ul>
 			</p>
 		";
@@ -232,6 +233,31 @@
 		return $announcement;
 	}
 	
+	function getFileTask($data) {
+		$name = $data["name"];
+		$major = strtoupper($data["major"]);
+		$sid = $data["id"];
+		
+		// get major professor
+		$committee_names = $data["committee_members_name"];
+		$committee_roles = $data["members_role"];
+		$i = 0;
+		while ($committee_names[$i] != "") {
+			if ($committee_roles[$i] == "major_advisor") {
+				$major_prof = $committee_names[$i];
+			}
+			$i++;
+		}
+		
+		return "File Task: $name &mdash; $major &mdash; $major_prof &mdash; $sid";
+	}
+	
+	
+	/****************************************************************************************************************
+	 *	Name: getScripts()																							*
+	 *	Input: $data array, this is the main array generated by the form the user fills out							*
+	 *	Output: An updated $data array with all the old values in addition to an `event_title` and `script` field	*
+	 **************************************************************************************************************/
 	function getScripts($data) {
 		switch ($data['event']) {
 			case 'final_thesis': 
@@ -273,6 +299,29 @@
 		
 		$data["event_title"] = $event_title;
 		$data["script"] = $script;
+		
+		return $data;
+	}
+	
+	function formatDegree($data) {
+
+		$degree = $data["degree"];
+		switch ($degree) {
+			case "ms":
+				$formattedDegree = "MS";
+				break;
+			case "meng":
+				$formattedDegree = "MEng";
+				break;
+			case "phd":
+				$formattedDegree = "PhD";
+				break;
+			default: 
+				$formattedDegree = "";
+				break;
+		}
+		
+		$data["formatted_degree"] = $formattedDegree;
 		
 		return $data;
 	}
