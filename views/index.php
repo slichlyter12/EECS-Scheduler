@@ -5,16 +5,13 @@
 // 	CONFIG:
 	$MAX_COMMITTEE_MEMBERS = 6;	
 	
+	$page_title = "Student Scheduler";
+	include("../../libs2/head.php");
+	
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>EECS Scheduler</title>
-		<link rel="stylesheet" type="text/css" href="main.css">
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
-	</head>
-	<body>
-		<h1 class="title">EECS Student Scheduler</h1>
+<h1 class="title">EECS Student Scheduler</h1>
+<div class="test">
+	<div class="testing">
 		<form method="post" action="action.php">
 			<div id="event_student">
 				<fieldset class="formGroup" id="event_information">
@@ -92,68 +89,73 @@
 			</fieldset>
 			<input type="submit" name="submit" value="Submit">
 		</form>
-		<script>
-			let msEvents = ["default", "final_thesis", "final_non_thesis"];
-			let mengEvents = ["default", "meng"];
-			let phdEvents = ["default", "final_thesis", "final_non_thesis", "phd_prelim", "phd_qual", "program_meeting"];
+	</div>
+</div>
+<script>
+	let msEvents = ["default", "final_thesis", "final_non_thesis"];
+	let mengEvents = ["default", "meng"];
+	let phdEvents = ["default", "final_thesis", "final_non_thesis", "phd_prelim", "phd_qual", "program_meeting"];
+	
+	let degreeSelector = $("select[name='degree']");
+	degreeSelector.on("change", function() {
+		updateEvents();
+	});
+	updateEvents();
+	
+	let eventSelector = $("select[name='event']");
+	eventSelector.on("change", function() {
+		checkThesis();
+	});
+	
+	function updateEvents() {
+		let eventSelector = $("select[name='event'] option");
+		let degree = degreeSelector.find(":selected").val();
+		
+		// Set all to disabled
+		eventSelector.each(function() {
+			$(this).attr("disabled", true);
+		});
 			
-			let degreeSelector = $("select[name='degree']");
-			degreeSelector.on("change", function() {
-				updateEvents();
-			});
-			updateEvents();
-			
-			let eventSelector = $("select[name='event']");
-			eventSelector.on("change", function() {
-				checkThesis();
-			});
-			
-			function updateEvents() {
-				let eventSelector = $("select[name='event'] option");
-				let degree = degreeSelector.find(":selected").val();
-				
-				// Set all to disabled
-				eventSelector.each(function() {
-					$(this).attr("disabled", true);
-				});
-					
-				// Enable events per degree		
-				if (degree == "ms") {
-					enableSelectorFromList(eventSelector, msEvents);
-				} else if (degree == "meng") {
-					enableSelectorFromList(eventSelector, mengEvents);
-				} else {
-					enableSelectorFromList(eventSelector, phdEvents);				
-				}
-				
-				checkThesis();
+		// Enable events per degree		
+		if (degree == "ms") {
+			enableSelectorFromList(eventSelector, msEvents);
+		} else if (degree == "meng") {
+			enableSelectorFromList(eventSelector, mengEvents);
+		} else {
+			enableSelectorFromList(eventSelector, phdEvents);				
+		}
+		
+		checkThesis();
+	}
+	
+	// Enables `selector` items in the `list`
+	function enableSelectorFromList(selector, list) {
+		selector.each(function() {
+			if (list.includes($(this).val())) {
+				$(this).attr("disabled", false);
 			}
-			
-			// Enables `selector` items in the `list`
-			function enableSelectorFromList(selector, list) {
-				selector.each(function() {
-					if (list.includes($(this).val())) {
-						$(this).attr("disabled", false);
-					}
-				});
+		});
+	}
+	
+	// Disables thesis if the non-thesis option is selected
+	function checkThesis() {
+		let eventSelector = $("select[name='event'] option:selected");
+		let thesis_fieldset = $("fieldset#thesis_information");
+		if (eventSelector.val() == "final_non_thesis") {
+			thesis_fieldset.addClass("disabled");
+			thesis_fieldset.find("input").val("N/A");
+			thesis_fieldset.find("textarea").val("N/A");
+		} else {
+			thesis_fieldset.removeClass("disabled");
+			if (thesis_fieldset.find("input").val() == "N/A") {
+				thesis_fieldset.find("input").val("");
+				thesis_fieldset.find("textarea").val("");
 			}
-			
-			// Disables thesis if the non-thesis option is selected
-			function checkThesis() {
-				let eventSelector = $("select[name='event'] option:selected");
-				let thesis_fieldset = $("fieldset#thesis_information");
-				if (eventSelector.val() == "final_non_thesis") {
-					thesis_fieldset.addClass("disabled");
-					thesis_fieldset.find("input").val("N/A");
-					thesis_fieldset.find("textarea").val("N/A");
-				} else {
-					thesis_fieldset.removeClass("disabled");
-					if (thesis_fieldset.find("input").val() == "N/A") {
-						thesis_fieldset.find("input").val("");
-						thesis_fieldset.find("textarea").val("");
-					}
-				}
-			}
-		</script>
-	</body>
-</html>
+		}
+	}
+</script>
+
+<?php include_once("addon_menu.php"); ?>
+<?php include_once("../../libs2/audience_menu.php"); ?>
+<?php include_once("../../libs2/foot.php"); ?>
+
