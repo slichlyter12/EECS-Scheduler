@@ -236,6 +236,8 @@
 	function getFileTask($data) {
 		$name = $data["name"];
 		$major = strtoupper($data["major"]);
+		$degree = $data["formatted_degree"];
+		$event_title = $data["event_title"];
 		$sid = $data["id"];
 		
 		// get major professor
@@ -249,7 +251,7 @@
 			$i++;
 		}
 		
-		return "File Task: $name &mdash; $major &mdash; $major_prof &mdash; $sid";
+		return "File Task: $name &mdash; $major &mdash; $degree $event_title &mdash; $major_prof &mdash; $sid";
 	}
 	
 	

@@ -3,6 +3,12 @@
 	// start session
 	session_start();
 	
+	// set debug level
+	$debug = 0;
+	if (!$debug) {
+		error_reporting(0);
+	}
+	
 	// get scripts functions
 	include_once("scripts.php");
 	

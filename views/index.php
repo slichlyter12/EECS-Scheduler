@@ -12,7 +12,7 @@
 <h1 class="title">EECS Student Scheduler</h1>
 <div class="test">
 	<div class="testing">
-		<form method="post" action="action.php">
+		<form method="post" action="../action.php">
 			<div id="event_student">
 				<fieldset class="formGroup" id="event_information">
 					<legend>Event Information:</legend>
@@ -67,34 +67,140 @@
 			</fieldset>
 			<fieldset class="formGroup" id="committee_members">
 				<legend>Committee Members:</legend>
-				<?php
-					for($i = 1; $i < $MAX_COMMITTEE_MEMBERS + 1; $i++) {
-						echo "
-							<p class='member'>-- Member $i --</p>
-							<p>Name: <input type='text' name='committee_members_name[]' placeholder='First Last'></p>
-							<p>
-								Role:
-								<select name='members_role[]'>
-									<option value='committee'>Committee</option>
-									<option value='major_advisor'>Major-Advisor</option>
-									<option value='co_advisor'>Co-Major Advisor</option>
-									<option value='gcr'>GCR</option>
-								</select>
-							</p>
-							<p>School/Department: <input type='text' name='committee_members_school[]' placeholder='EECS'></p>
-							<hr>
-						";
-					}	
-				?>
+				<h4 id="committee_note">Note: Select Event Above</h4>
+<!-- 				<input type="button" id="add_member_button" value="add_1">Add Committee Member</button> -->
 			</fieldset>
 			<input type="submit" name="submit" value="Submit">
 		</form>
 	</div>
 </div>
 <script>
-	let msEvents = ["default", "final_thesis", "final_non_thesis"];
-	let mengEvents = ["default", "meng"];
-	let phdEvents = ["default", "final_thesis", "final_non_thesis", "phd_prelim", "phd_qual", "program_meeting"];
+	let msEvents 	= ["default", "final_thesis", "final_non_thesis"];
+	let mengEvents 	= ["default", "meng"];
+	let phdEvents 	= ["default", "final_thesis", "phd_prelim", "phd_qual", "program_meeting"];
+	var currentMembersCount = 0;
+	
+	let numCommitteeMembers = {
+			"phd_qual": 4,
+			"meng": 3,
+			"final_non_thesis": 3,
+			"final_thesis": 4,
+			"phd_prelim": 5,
+			"default": 0
+		};
+	let numGCR = {
+			"final_thesis": 1,
+			"phd_prelim": 1,
+			"default": 0
+		};
+		
+// 	let addMemberButton = document.getElementById("add_member_button");
+// 	addMemberButton.addEventListener("click", addButtonClicked());
+	
+	function addButtonClicked() {
+		if (addMemberButton.value === "add_1") {
+			addCommitteeMember();
+		}
+	}
+		
+	function addCommitteeMember() {
+			
+		//increment counter
+		currentMembersCount++;
+		
+		// grab fieldset handle
+		let fieldset = document.getElementById("committee_members");
+		
+		// CREATE COMMITTEE MEMBERS FORM:
+		// name
+		let member = document.createElement("p");
+		let memberText = document.createTextNode("-- Member " + currentMembersCount + " --");
+		member.setAttribute("class", "member");
+		member.setAttribute("id", currentMembersCount);
+		member.appendChild(memberText);
+		
+		// name input
+		let name = document.createElement("p");
+		let nameText = document.createTextNode("Name: ");
+		let nameInput = document.createElement("input");
+		nameInput.setAttribute("type", "text");
+		nameInput.setAttribute("name", "committee_members_name[]");
+		nameInput.setAttribute("placeholder", "First Last");
+		name.appendChild(nameText);
+		name.appendChild(nameInput);
+		
+		// role input
+		let role = document.createElement("p");
+		let roleText = document.createTextNode("Role: ");
+		let roleSelect = document.createElement("select");
+		roleSelect.setAttribute("name", "members_role[]");
+		let committeeOption = document.createElement("option");
+		committeeOption.text = "Committee";
+		committeeOption.setAttribute("value", "committee");
+		roleSelect.appendChild(committeeOption);
+		let majorAdvisorOption = document.createElement("option");
+		majorAdvisorOption.text = "Major Advisor";
+		majorAdvisorOption.setAttribute("value", "major_advisor");
+		roleSelect.appendChild(majorAdvisorOption);
+		let coAdvisorOption = document.createElement("option");
+		coAdvisorOption.text = "Co-Major Advisor";
+		coAdvisorOption.setAttribute("value", "co_advisor");
+		roleSelect.appendChild(coAdvisorOption);
+		let gcrOption = document.createElement("option");
+		gcrOption.text = "GCR";
+		gcrOption.setAttribute("value", "gcr");
+		roleSelect.appendChild(gcrOption);
+		role.appendChild(roleText);
+		role.appendChild(roleSelect);
+		
+		// school department input
+		let schoolDepartment = document.createElement("p");
+		let schoolDepartmentText = document.createTextNode("School Department: ");
+		let schoolDepartmentInput = document.createElement("input");
+		schoolDepartmentInput.setAttribute("type", "text");
+		schoolDepartmentInput.setAttribute("name", "committee_members_school[]");
+		schoolDepartmentInput.setAttribute("placeholder", "EECS");
+		schoolDepartment.appendChild(schoolDepartmentText);
+		schoolDepartment.appendChild(schoolDepartmentInput);
+		
+		// create wrapper
+		let committee_wrapper = document.createElement("div");
+		committee_wrapper.setAttribute("class", "committee_wrapper");
+			
+		// append committee members
+		committee_wrapper.appendChild(member);
+		committee_wrapper.appendChild(name);
+		committee_wrapper.appendChild(role);
+		committee_wrapper.appendChild(schoolDepartment);
+		committee_wrapper.appendChild(document.createElement("hr"));
+		fieldset.appendChild(committee_wrapper);
+	}
+		
+	function showCommitteeMembers(event) {
+		event = event[0].value;
+		let members = (numCommitteeMembers[event] ? numCommitteeMembers[event] : 0);
+		let gcr = (numGCR[event] ? numGCR[event] : 0);
+		let total = members + gcr;
+		
+		console.log(total);
+		console.log(gcr);
+		
+		// clear committee members
+		if (event != "default") {
+			let note = $("#committee_note");
+			note.remove();
+		}
+		
+		// clear old committees and reset counter
+		let old_committee = $(".committee_wrapper");
+		old_committee.remove();
+		currentMembersCount = 0;
+		
+		// add new committee members
+		for (var i = 0; i < total; i++) {
+			addCommitteeMember();
+		}
+	}
 	
 	let degreeSelector = $("select[name='degree']");
 	degreeSelector.on("change", function() {
@@ -152,6 +258,8 @@
 				thesis_fieldset.find("textarea").val("");
 			}
 		}
+		
+		showCommitteeMembers(eventSelector);
 	}
 </script>
 
