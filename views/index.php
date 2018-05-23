@@ -9,7 +9,7 @@
 <h1 class="title">EECS Student Scheduler</h1>
 <div class="test">
 	<div class="testing">
-		<form id="scheduler_form" method="post" action="../action.php">
+		<form id="scheduler_form" method="post" action="confirmation.php">
 			<div id="event_student">
 				<fieldset class="formGroup" id="event_information">
 					<legend>Event Information:</legend>

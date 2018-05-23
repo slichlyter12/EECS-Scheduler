@@ -10,7 +10,7 @@
 	}
 	
 	// get scripts functions
-	include_once("scripts.php");
+	include_once("../scripts.php");
 	
 	// if user didn't come from the from, redirect them there 
 	if (!isset($_POST["submit"])) {
@@ -19,9 +19,6 @@
 		
 	// set default timezone for date functions
 	date_default_timezone_set("America/Los_Angeles");
-	
-	// print posted data to screen
-	echo highlight_string("<?php\n" . var_export($_POST, true) . ";\n?>");
 	
 	// set main $data array
 	$data =
@@ -78,18 +75,53 @@
 	
 	// get file task
 	$fileTask = getFileTask($data);
-			
+	
+	// put html message into string
+	$email_message = highlight_string(var_export($_POST, true), true);
+	$email_message .= $script;
+	$email_message .= "<hr>\n";
+	$email_message .= $announcement;
+	$email_message .= $fileTask; 
+		
+	// send email function
+	function send_email($email_to, $email_from, $email_bcc, $subject, $message){
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers = $headers . 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers = $headers . $email_from . $email_bcc;
+	    if(mail($email_to,$subject,$message,$headers)){
+			return true;
+		}else{
+			return false;
+		};
+	 }
+	 
+	 // define email message data
+	 $toEmail = "lichlyts@oregonstate.edu";
+	 $fromEmail = "From: event.scheduler@oregonstate.edu";
+	 $bccEmail = "";
+	 $subject = "New Event Scheduled - " . $data['name'];
+	 $message = $email_message;
+	 
+	 // send email, if failed say so; if not, also say so
+	 if (send_email($toEmail, $fromEmail, $bccEmail, $subject, $message)) {
+		 $confirmation = "<h3 style='color: green'>Success!</h3>";
+	 } else {
+		 $confirmation = "<h3 style='color: red'>Failure!</h3>";
+	 }
+	 
+	 // SHOW CONFIRMATION HTML
+	 $page_title = "Student Scheduler";
+	 include("../../libs2/head.php");
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title><?php echo $event_title; ?> Script</title>
-		<link rel="stylesheet" type="text/css" href="main.css">
-	</head>
-	<body>
- 		<div id="script"><?php echo $script; ?></div>
- 		<hr>
- 		<div id="announcement"><?php echo $announcement; ?></div>
- 		<div id="fileTask"><?php echo $fileTask; ?></div>
-	</body>
-</html>
+
+<h1 class="title">EECS Student Scheduler</h1>
+<div class="test">
+	<div class="testing">
+		<?php echo $confirmation; ?>
+	</div>
+</div>
+
+<?php include_once("addon_menu.php"); ?>
+<?php include_once("../../libs2/audience_menu.php"); ?>
+<?php include_once("../../libs2/foot.php"); ?>
+
