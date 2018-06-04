@@ -192,34 +192,30 @@
  		
 		// Top part of announcement
 		$announcement = "
-			<div class='announcement'>
-				<ul>
-					<li>School of Electrical Engineering and Computer Science</li>
-					<li>Oregon State University</li>
-				</ul>
-			</div>
-			
+			<table>
+				<tr><td>School of Electrical Engineering and Computer Science</td></tr>
+				<tr><td>Oregon State University</td></tr>
+			</table>
+							
 			<p>$degree $event_title &ndash; $name</p>
 			
-			<div class='announcement'>
-				<ul>
-					<li>Date: $date</li>
-					<li>Time: $start_time - $end_time</li>
-					<li>Place: ROOM</li>
-				</ul>
-			</div>
+			<table>
+				<tr><td>Date:</td><td>$date</td></tr>
+				<tr><td>Time:</td><td>$start_time - $end_time</td></tr>
+				<tr><td>Place:</td><td>ROOM</td></tr>
+			</table>
 		";
 		
 		// Committee
-		$announcement .= "<div class='announcement'><ul>";
+		$announcement .= "<table>";
 		for ($i = 0; $i < sizeof($committee_names); $i++) {
 			$name = ucwords($committee_names[$i]);
 			$role = ucwords(str_replace('_', ' ', $committee_roles[$i]));
 			if (!empty($name)) {
-				$announcement .= "<li>$role: $name</li>";
+				$announcement .= "<tr><td>$role:</td><td>$name</td></tr>";
 			}
 		}
-		$announcement .= "</ul></div>";
+		$announcement .= "</table>";
 		
 		// Bottom part of announcement (Thesis)
 		if ($event != "final_non_thesis") {
