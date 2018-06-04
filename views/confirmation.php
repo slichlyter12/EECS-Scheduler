@@ -77,11 +77,16 @@
 	$fileTask = getFileTask($data);
 	
 	// put html message into string
-	$email_message = highlight_string(var_export($_POST, true), true);
-	$email_message .= $script;
+	$email_message = "<style>\n";
+	$email_message .= file_get_contents("../main.css")."\n";
+	$email_message .= "</style>\n";
+	$email_message .= highlight_string(var_export($_POST, true), true)."\n";
+	$email_message .= $script."\n";
 	$email_message .= "<hr>\n";
-	$email_message .= $announcement;
-	$email_message .= $fileTask; 
+	$email_message .= $announcement."\n";
+	$email_message .= $fileTask."\n"; 
+	
+// 	echo $email_message;
 		
 	// send email function
 	function send_email($email_to, $email_from, $email_bcc, $subject, $message){
@@ -97,6 +102,7 @@
 	 
 	 // define email message data
 	 $toEmail = "lichlyts@oregonstate.edu";
+// 	 $toEmail = "calvin.hughes@oregonstate.edu";
 	 $fromEmail = "From: event.scheduler@oregonstate.edu";
 	 $bccEmail = "";
 	 $subject = "New Event Scheduled - " . $data['name'];

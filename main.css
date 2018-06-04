@@ -97,7 +97,7 @@ fieldset.disabled {
 	display: none;
 }
 
-#announcement ul {
+.announcement ul {
 	list-style: none;
 	padding: 0;
 }

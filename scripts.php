@@ -192,26 +192,26 @@
  		
 		// Top part of announcement
 		$announcement = "
-			<p>
+			<div class='announcement'>
 				<ul>
 					<li>School of Electrical Engineering and Computer Science</li>
 					<li>Oregon State University</li>
 				</ul>
-			</p>
+			</div>
 			
 			<p>$degree $event_title &ndash; $name</p>
 			
-			<p>
+			<div class='announcement'>
 				<ul>
 					<li>Date: $date</li>
 					<li>Time: $start_time - $end_time</li>
 					<li>Place: ROOM</li>
 				</ul>
-			</p>
+			</div>
 		";
 		
 		// Committee
-		$announcement .= "<p><ul>";
+		$announcement .= "<div class='announcement'><ul>";
 		for ($i = 0; $i < sizeof($committee_names); $i++) {
 			$name = ucwords($committee_names[$i]);
 			$role = ucwords(str_replace('_', ' ', $committee_roles[$i]));
@@ -219,7 +219,7 @@
 				$announcement .= "<li>$role: $name</li>";
 			}
 		}
-		$announcement .= "</ul></p>";
+		$announcement .= "</ul></div>";
 		
 		// Bottom part of announcement (Thesis)
 		if ($event != "final_non_thesis") {
