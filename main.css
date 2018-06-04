@@ -82,11 +82,13 @@ input[type='submit'] {
 	margin-top: 10px;
 }
 
-#script, #announcement, #fileTask {
+#script, .announcement, #fileTask, .announcement table {
 	font-family: "Arial", sans-serif;
 	font-size: 10.5pt;
+/*
 	margin: 5px;
 	padding: 10px;
+*/
 }
 
 #email_form {

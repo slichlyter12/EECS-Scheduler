@@ -192,6 +192,7 @@
  		
 		// Top part of announcement
 		$announcement = "
+		<div class='announcement'>
 			<table>
 				<tr><td>School of Electrical Engineering and Computer Science</td></tr>
 				<tr><td>Oregon State University</td></tr>
@@ -225,6 +226,9 @@
 				<p>Abstract: $thesis_abstract</p>
 			";
 		}
+		
+		// close .announcement div
+		$announcement .= "</div>";
 		
 		return $announcement;
 	}
