@@ -54,7 +54,7 @@
 					<legend>Student Information:</legend>
 					<p>Name: <input type="text" placeholder="First Last" name="name" required></p>
 					<p>ID #: <input type="number" name="id" required></p>
-					<p>Email: <input type="email" name="email" required></p>
+					<p>OSU Email: <input type="email" name="email" required></p>
 				</fieldset>
 			</div>
 			<fieldset class="formGroup" id="thesis_information">

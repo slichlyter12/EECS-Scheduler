@@ -110,9 +110,9 @@
 	 
 	 // send email, if failed say so; if not, also say so
 	 if (send_email($toEmail, $fromEmail, $bccEmail, $subject, $message)) {
-		 $confirmation = "<h3 style='color: green'>Success!</h3>";
+		 $confirmation = "<h3 style='color: green'>Thank you for your submission! The grad coordinator will schedule your room and email you with more information at their earliest convenience!</h3>";
 	 } else {
-		 $confirmation = "<h3 style='color: red'>Failure!</h3>";
+		 $confirmation = "<h3 style='color: red'>Submission Error! Please try again.</h3>";
 	 }
 	 
 	 // SHOW CONFIRMATION HTML
