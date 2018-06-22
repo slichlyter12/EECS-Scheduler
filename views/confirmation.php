@@ -93,9 +93,9 @@
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers = $headers . 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 		$headers = $headers . $email_from . $email_bcc;
-	    if(mail($email_to,$subject,$message,$headers)){
+	    if (mail($email_to,$subject,$message,$headers)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		};
 	 }
