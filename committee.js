@@ -1,12 +1,13 @@
-/************************************************************************************
- * addCommitteeMember()																*
- * Input: 	role_title:string (default, major_advisor, co_advisor, gcr, committee) 	*
- *			createOnly:bool															*
- * Output: 	appends committee member to list of members (#committeeMembers) 		*
- *				OR 																	*
- *			returns created committee member										*
- ************************************************************************************/
-function addCommitteeMember(role_title = 'default', createOnly = false) {
+/****************************************************************************************************
+ * addCommitteeMember()																				*
+ * Input: 	role_title:string (default, major_advisor, co_advisor, gcr, committee, minor_advisor) 	*
+ *			createOnly:bool																			*
+ 			includeHR:bool (used primarily for minor advisor										*
+ * Output: 	appends committee member to list of members (#committeeMembers) 						*
+ *				OR 																					*
+ *			returns created committee member														*
+ ****************************************************************************************************/
+function addCommitteeMember(role_title = 'default', createOnly = false, includeHR = false) {
 		
 	//increment counter
 	currentMembersCount++;
@@ -24,14 +25,21 @@ function addCommitteeMember(role_title = 'default', createOnly = false) {
 	let name = makeName(role_title);
 	committee_wrapper.appendChild(name);
 	
-	// co-major advisor checkbox
+	// co-major and minor advisor checkbox
 	if (role_title == "major_advisor") {
 		let coAdvisorCheck = makeCoAdvisorCheck();
+		let minorAdvisorCheck = makeMinorAdvisorCheck();
 		committee_wrapper.appendChild(coAdvisorCheck);
+		committee_wrapper.appendChild(minorAdvisorCheck);
 		
 		// add event handler to show co-advisor
-		coAdvisorCheck.addEventListener("change", function (event) {
+		coAdvisorCheck.addEventListener("change", function(event) {
 			switchCoAdvisor();
+		});
+		
+		// add event listener to show minor-advisor
+		minorAdvisorCheck.addEventListener("change", function(event) {
+			switchMinorAdvisor();
 		});
 	} 
 	
@@ -54,6 +62,12 @@ function addCommitteeMember(role_title = 'default', createOnly = false) {
 	
 	// return wrapper or append wrapper to fieldset
 	if (createOnly) {
+		
+		// check if horizontal rule is wanted
+		if (includeHR) {
+			committee_wrapper.appendChild(document.createElement("hr"));
+		}
+		
 		return committee_wrapper;
 	} else {
 		// append hr and wrapper to form
@@ -100,6 +114,20 @@ function makeCoAdvisorCheck() {
 	checkbox.setAttribute("value", "coadvisor");
 	checkbox.setAttribute("id", "coAdvisorCheckbox");
 	let text = document.createTextNode(" I have co-major advisors");
+	wrapper.appendChild(checkbox);
+	wrapper.appendChild(text);
+	
+	return wrapper;
+}
+
+// make minor-advisor check box
+function makeMinorAdvisorCheck() {
+	let wrapper = document.createElement("p");
+	let checkbox = document.createElement("input");
+	checkbox.setAttribute("type", "checkbox");
+	checkbox.setAttribute("value", "minoradvisor");
+	checkbox.setAttribute("id", "minorAdvisorCheckbox");
+	let text = document.createTextNode(" I have a minor advisor");
 	wrapper.appendChild(checkbox);
 	wrapper.appendChild(text);
 	
@@ -167,6 +195,7 @@ function getTitle(value) {
 	switch (value) {
 		case 'major_advisor': formalized = "Major Advisor"; break;
 		case 'co_advisor': formalized = "Co-Major Advisor"; break;
+		case 'minor_advisor': formalized = "Minor Advisor"; break;
 		case 'gcr': formalized = "GCR"; break;
 		case 'committee': 
 		default: formalized = "Committee";
@@ -177,8 +206,8 @@ function getTitle(value) {
 
 function showCommitteeMembers(event) {
 	event = event[0].value;
-	let members = (numCommitteeMembers[event] ? numCommitteeMembers[event] : 0);
-	let gcr = (numGCR[event] ? numGCR[event] : 0);
+	let members = numCommitteeMembers[event] ? numCommitteeMembers[event] : 0;
+	let gcr = numGCR[event] ? numGCR[event] : 0;
 	
 	// clear committee members note
 	let note = $("#committee_note");

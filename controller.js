@@ -114,6 +114,7 @@ function switchCoAdvisor() {
 	if (check.is(":checked")) {
 		title = "Co-Major Advisor"
 		role = "co_advisor";
+		
 		let coAdvisor = addCommitteeMember("co_advisor", true);
 		majorAdvisorWrapper.before(coAdvisor);
 	} else {
@@ -124,4 +125,19 @@ function switchCoAdvisor() {
 	
 	majorAdvisorWrapper.children(".member").text(title);
 	majorAdvisorWrapper.children(".hidden_role").val(role);
+}
+
+// adds minor advisor below major advisor
+function switchMinorAdvisor() {
+	let majorAdvisorWrapper = $(".committee_wrapper#1");
+	let check = $("#minorAdvisorCheckbox");
+	
+	if (check.is(":checked")) {
+		let minorAdvisor = addCommitteeMember("minor_advisor", true, true);
+		majorAdvisorWrapper.after(minorAdvisor);
+	} else {
+		// remove minor_advisor class 
+		$(".minor_advisor").remove();
+		currentMembersCount--;
+	}
 }

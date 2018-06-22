@@ -17,7 +17,7 @@
 						<select name="degree">
 							<option value="ms">MS</option>
 							<option value="meng">MEng</option>
-							<option value="phd" selected>PhD</option>
+							<option value="phd">PhD</option>
 						</select>
 					</p>
 					<p>Major: 
