@@ -101,8 +101,8 @@
 	 }
 	 
 	 // define email message data
-	 $toEmail = "lichlyts@oregonstate.edu";
-// 	 $toEmail = "calvin.hughes@oregonstate.edu";
+// 	 $toEmail = "lichlyts@oregonstate.edu";
+	 $toEmail = "calvin.hughes@oregonstate.edu";
 	 $fromEmail = "From: event.scheduler@oregonstate.edu";
 	 $bccEmail = "";
 	 $subject = "New Event Scheduled - " . $data['name'];
