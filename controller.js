@@ -115,12 +115,19 @@ function switchCoAdvisor() {
 		title = "Co-Major Advisor"
 		role = "co_advisor";
 		
+		// add co-advisor
 		let coAdvisor = addCommitteeMember("co_advisor", true);
 		majorAdvisorWrapper.before(coAdvisor);
+		
+		// remove committee member
+		$(".committee").first().remove();
 	} else {
 		// co-advisor was set to the first, so remove it
 		$(".committee_wrapper").first().remove();
 		currentMembersCount--;
+		
+		// add committee member back
+		addCommitteeMember("committee");
 	}
 	
 	majorAdvisorWrapper.children(".member").text(title);
