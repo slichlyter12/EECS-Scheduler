@@ -6,9 +6,17 @@
 	include("../../libs2/head.php");
 	
 ?>
-<h1 class="title">EECS Student Scheduler</h1>
+<h2 class="title">Event Schedule Form</h2>
 <div class="test">
 	<div class="testing">
+		<br>
+		<p><b>TO SCHEDULE: </b>PhD Prog. Mtg., PhD Qual Exam, PhD Oral Prelim, MS/MEng/PhD Final Oral Exam</p>
+		<ol>
+			<li>Fill in and submit the form below.</li>
+			<li>Calvin Hughes will schedule room/equipment and send you an email confirmation.</li>
+		</ol>
+		<br>
+		<p><b>NOTE:</b> After the room/equipment is confirmed, <a href="http://oregonstate.edu/dept/grad_school/phpforms/event.php">schedule your exam</a> with the Graduate School at least two weeks prior to MS/MEng Final Oral Exam, PhD Oral Preliminary Exam, and PhD Final Exam.</p>
 		<form id="scheduler_form" method="post" action="confirmation.php">
 			<div id="event_student">
 				<fieldset class="formGroup" id="event_information">

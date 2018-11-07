@@ -1,25 +1,25 @@
 <?php
 	
+	// if user didn't come from the from, redirect them there 
+	if (!isset($_POST["submit"])) {
+		header("Location: index.php");
+	}
+	
 	// start session
 	session_start();
 	
 	// set debug level
-	$debug = 0;
+	$debug = 1;
 	if (!$debug) {
 		error_reporting(0);
 	}
 	
 	// get scripts functions
 	include_once("../scripts.php");
-	
-	// if user didn't come from the from, redirect them there 
-	if (!isset($_POST["submit"])) {
-		header("Location: index.php");
-	}
 		
 	// set default timezone for date functions
 	date_default_timezone_set("America/Los_Angeles");
-	
+		
 	// set main $data array
 	$data =
 	array (
@@ -102,7 +102,8 @@
 	 
 	 // define email message data
 // 	 $toEmail = "lichlyts@oregonstate.edu";
-	 $toEmail = "calvin.hughes@oregonstate.edu";
+// 	 $toEmail = "calvin.hughes@oregonstate.edu";
+	 $toEmail = "eecs.gradinfo@oregonstate.edu";
 	 $fromEmail = "From: event.scheduler@oregonstate.edu";
 	 $bccEmail = "";
 	 $subject = "New Event Scheduled - " . $data['name'];

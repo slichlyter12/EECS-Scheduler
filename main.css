@@ -3,11 +3,13 @@ html, body {
 	margin: 0;
 	padding: 0;
 	clear: both;
-	font-family: "system-ui";
+	font-family: "Open Sans", sans-serif;
 }
 
 .title {
 	text-align: center;
+	padding: 10px;
+	margin: 10px;
 }
 
 legend {

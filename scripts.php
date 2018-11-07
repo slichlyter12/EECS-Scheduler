@@ -18,7 +18,7 @@
 			
 			<p>Please come to KEC 1148 to pick up the equipment you reserved and bring your student ID card.  The office is closed from 12:00pm-1:00pm so be sure and come before 12:00pm or after 1:00pm to check out or return your reserved equipment.  Your key card access opens the room.  Please be sure to turn the projector off at the end of your session.</p>
 			
-			<p>The Graduate School only requires the signed <a href='http://gradschool.oregonstate.edu/sites/gradschool.oregonstate.edu/files/etd_approval-20170310.pdf'>ETD Submission Approval Form</a> and title page of your thesis for their certification process after you have completed your final exam.  Your ETD form needs to be signed by Dr. Bella Bose after you and your major advisor sign it. I can help you get his signature if you leave your ETD form and title page at the front desk for me.  After Dr. Bose signs your ETD form, I will submit it and your title page to the Graduate School.</p>
+			<p>The Graduate School only requires the signed <a href='http://gradschool.oregonstate.edu/sites/gradschool.oregonstate.edu/files/etd_approval-20170310.pdf'>ETD Submission Approval Form</a> and title page of your thesis for their certification process after you have completed your final exam.  Your ETD form needs to be signed by the Academic Chair after you and your major advisor sign it. I can help you get his signature if you leave your ETD form and title page at the front desk for me.  After the Academic Chair signs your ETD form, I will submit it and your title page to the Graduate School.</p>
 			
 			<p>All MS and PhD students must upload a copy of their thesis to Scholars Archive.  More information can be found here for thesis students: <a href='http://oregonstate.edu/dept/grad_school/etd_guide.php'>http://oregonstate.edu/dept/grad_school/etd_guide.php</a>.</p>
 			
@@ -178,7 +178,7 @@
 	}
 	
 	function getAnnouncement($data) {
-		$date = date("l, F n, Y", strtotime($data['date']));
+		$date = date("l, F j, Y", strtotime($data['date']));
 		$start_time = date('g:ia', strtotime($data['start_time']));
 		$end_time = date('g:ia', strtotime($data['end_time']));
 		$event_title = $data["event_title"];
@@ -205,13 +205,19 @@
 				<tr><td>Time:</td><td>$start_time - $end_time</td></tr>
 				<tr><td>Place:</td><td>ROOM</td></tr>
 			</table>
+			<br>
 		";
 		
 		// Committee
 		$announcement .= "<table>";
 		for ($i = 0; $i < sizeof($committee_names); $i++) {
 			$name = ucwords($committee_names[$i]);
-			$role = ucwords(str_replace('_', ' ', $committee_roles[$i]));
+			$role = str_replace('_', ' ', $committee_roles[$i]);
+			if ($role == "gcr") {
+				$role = strtoupper($role);
+			} else {
+				$role = ucwords($role);
+			}
 			if (!empty($name)) {
 				$announcement .= "<tr><td>$role:</td><td>$name</td></tr>";
 			}
@@ -219,7 +225,7 @@
 		$announcement .= "</table>";
 		
 		// Bottom part of announcement (Thesis)
-		if ($event != "final_non_thesis") {
+		if ($event != "meng") {
 			$announcement .= "
 				<p>Title: $thesis_title</p>
 				

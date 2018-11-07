@@ -90,7 +90,7 @@ function enableSelectorFromList(selector, list) {
 function checkThesis() {
 	let eventSelector = $("select[name='event'] option:selected");
 	let thesis_fieldset = $("fieldset#thesis_information");
-	if (eventSelector.val() == "final_non_thesis") {
+	if (eventSelector.val() == "meng") {
 		thesis_fieldset.addClass("disabled");
 		thesis_fieldset.find("input").val("N/A");
 		thesis_fieldset.find("textarea").val("N/A");
