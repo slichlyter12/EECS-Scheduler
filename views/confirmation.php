@@ -9,7 +9,7 @@
 	session_start();
 	
 	// set debug level
-	$debug = 1;
+	$debug = 0;
 	if (!$debug) {
 		error_reporting(0);
 	}
